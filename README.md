@@ -1,4 +1,6 @@
 # Electornic Store
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 An E-Store for selling electronics products.
 
 ## Screenshots
