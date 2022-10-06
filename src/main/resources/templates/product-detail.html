@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+
+    <style>
+        .text-block {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="config">
+    <div class="preloader is-active">
+        <div class="preloader__wrap">
+
+            <img class="preloader__img" src="images/loading_2.png" alt=""></div>
+    </div>
+
+    <!--====== Main App ======-->
+    <div id="app">
+
+        <!--====== Main Header ======-->
+        <th:block th:include="fragments/header :: header"></th:block>
+        <!--====== End - Main Header ======-->
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-t-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+
+                            <!--====== Product Breadcrumb ======-->
+                            <div class="pd-breadcrumb u-s-m-b-30">
+                                <ul class="pd-breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a th:href="@{/}">Home</a>
+                                    </li>
+                                    <li class="has-separator">
+
+                                        <a th:href="@{products(c=${product.category.slug})}"
+                                           th:text="${product.category.name}">Electronics
+                                        </a>
+                                    </li>
+                                    <li class="is-marked">
+
+                                        <a th:href="@{product(s=${product.slug})}"
+                                           th:text="${product.title}">Nikon Cameras</a></li>
+                                </ul>
+                            </div>
+                            <!--====== End - Product Breadcrumb ======-->
+
+
+                            <!--====== Product Detail Zoom ======-->
+                            <div class="pd u-s-m-b-30">
+                                <div class="slider-fouc pd-wrap">
+                                    <div id="pd-o-initiate">
+                                        <div class="pd-o-img-wrap" th:each="pic: ${product.pictures}"
+                                             th:data-src="${pic.link}">
+                                            <img class="u-img-fluid" th:src="${pic.link}"
+                                                 th:data-zoom-image="${pic.link}" alt="picture">
+                                        </div>
+                                    </div>
+
+                                    <span class="pd-text">Click for larger zoom</span>
+                                </div>
+                                <div class="u-s-m-t-15">
+                                    <div class="slider-fouc">
+                                        <div id="pd-o-thumbnail">
+                                            <div th:each="pic: ${product.pictures}" >
+
+                                                <img class="u-img-fluid" th:src="${pic.link}" alt="picture">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--====== End - Product Detail Zoom ======-->
+                        </div>
+                        <div class="col-lg-7">
+
+                            <!--====== Product Right Side Details ======-->
+                            <div class="pd-detail">
+                                <div>
+
+                                    <span class="pd-detail__name" th:text="${product.title}">Nikon Camera 4k Lens Zoom Pro</span></div>
+                                <div>
+                                    <div class="pd-detail__inline">
+
+                                        <span class="pd-detail__price">$<span th:text="${product.price}">6.99</span></span>
+
+                                        <span class="pd-detail__discount"
+                                              th:if="${product.discount.display}">
+                                            (<span th:text="${product.discount.percentage}">76</span>% OFF)
+                                        </span>
+                                        <del class="pd-detail__del"
+                                             th:if="${product.discount.display}">$<span th:text="${product.discount.oldPrice}">28.97</span></del>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15" th:if="${product.quantity.display}">
+                                    <div class="pd-detail__inline">
+
+                                        <span class="pd-detail__stock"
+                                              th:if="${product.quantity.quantityBadge.name() == 'MANY'}">200 in stock
+                                        </span>
+
+                                        <span class="pd-detail__left"
+                                              th:if="${product.quantity.quantityBadge.name() == 'ONLY'}">Only 2 left
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+
+                                    <span class="pd-detail__preview-desc text-block " th:text="${product.description}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
+                                <div class="u-s-m-b-15">
+                                    <ul class="pd-social-list">
+                                        <li>
+
+                                            <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li>
+
+                                            <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li>
+
+                                            <a class="s-insta--color-hover" href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li>
+
+                                            <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a></li>
+                                        <li>
+
+                                            <a class="s-gplus--color-hover" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <form class="pd-detail__form">
+                                        <div class="pd-detail-inline-2">
+                                            <div class="u-s-m-b-15">
+                                                <button class="btn btn--e-brand-b-2" type="button">Buy Now</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--====== End - Product Right Side Details ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--====== End - Section 1 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+        <!--====== Main Footer ======-->
+        <footer>
+            <th:block th:include="fragments/footer :: footer"></th:block>
+        </footer>
+        <!--====== Modal Section ======-->
+        
+        <!--====== End - Modal Section ======-->
+    </div>
+    <!--====== End - Main App ======-->
+
+
+    <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+    <script>
+        window.ga = function() {
+            ga.q.push(arguments)
+        };
+        ga.q = [];
+        ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+    <!--====== Vendor Js ======-->
+    <script src="js/vendor.js"></script>
+
+    <!--====== jQuery Shopnav plugin ======-->
+    <script src="js/jquery.shopnav.js"></script>
+
+    <!--====== App ======-->
+    <script src="js/app.js"></script>
+
+    <!--====== Noscript ======-->
+    <noscript>
+        <div class="app-setting">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="app-setting__wrap">
+                            <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+
+                            <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </noscript>
+</body>
+</html>

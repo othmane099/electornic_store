@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+<body class="config">
+    <div class="preloader is-active">
+        <div class="preloader__wrap">
+
+            <img class="preloader__img" src="images/loading_2.png" alt=""></div>
+    </div>
+
+    <!--====== Main App ======-->
+    <div id="app">
+
+        <!--====== Main Header ======-->
+        <th:block th:include="fragments/header :: header"></th:block>
+        <!--====== End - Main Header ======-->
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shop-p">
+                                <div class="shop-p__toolbar u-s-m-b-30 ">
+                                    <form th:action="@{/products}">
+                                        <div class="tool-style__form-wrap">
+                                            <div class="u-s-m-b-8">
+                                                <select class="select-box select-box--transparent-b-2"
+                                                        name="c" onchange="this.form.submit()">
+                                                    <option selected th:text="${currentCategoryName}"
+                                                            th:value="${currentCategorySlug}">all
+                                                    </option>
+                                                    <option>all</option>
+                                                    <option th:text="${cat.name}"
+                                                            th:each="cat: ${categories}"
+                                                            th:value="${cat.slug}">Electronics
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                                <div class="shop-p__collection">
+                                    <div class="row is-grid-active">
+                                        <div class="col-lg-3 col-md-4 col-sm-6" th:each="prod: ${products}">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                                       th:href="@{product(s=${prod.slug})}">
+                                                        <img class="aspect__img" th:src="${prod.defaultPicture}" alt="">
+                                                    </a>
+
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="shop-side-version-2.html" th:text="${prod.category.name}">Men Clothing</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="product-detail.html" th:text="${prod.title}">New Fashion B Nice Elegant</a></div>
+
+                                                    <div class="product-m__price">
+                                                        $<span th:text="${prod.price}">125.00</span>
+
+                                                        <span class="product-m__discount"
+                                                              th:if="${prod.discount.display}"
+                                                              th:text="${prod.discount.oldPrice}">$22.00</span>
+                                                    </div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+
+                                                            <span th:text="${prod.description}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span></div>
+                                                        <div class="product-m__wishlist">
+
+                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="u-s-p-y-60">
+
+                                    <!--====== Pagination ======-->
+
+                                    <ul class="shop-p__pagination">
+                                        <li th:if="${currentPage > 0}">
+                                            <a class="fas fa-angle-left"
+                                               th:href="@{products(k=${currentKeyword}, c=${currentCategorySlug}, page=${currentPage-1})}">
+                                            </a>
+                                        </li>
+
+                                        <th:block th:each="page, status: ${totalPages}">
+                                            <li th:class="${status.index==currentPage ? 'is-active' : ''}">
+                                                <a th:href="@{products(k=${currentKeyword}, c=${currentCategorySlug}, page=${status.index})}"
+                                                   th:text="${status.index+1}">1</a>
+                                            </li>
+                                        </th:block>
+
+                                        <li th:if="${currentPage <# lists.size(totalPages)-1}">
+                                            <a class="fas fa-angle-right"
+                                               th:href="@{products(k=${currentKeyword}, c=${currentCategorySlug}, page=${currentPage+1})}">
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                    <!--====== End - Pagination ======-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+        <!--====== Main Footer ======-->
+        <footer>
+            <th:block th:include="fragments/footer :: footer"></th:block>
+        </footer>
+    </div>
+    <!--====== End - Main App ======-->
+
+
+    <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+    <script>
+        window.ga = function() {
+            ga.q.push(arguments)
+        };
+        ga.q = [];
+        ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+    <!--====== Vendor Js ======-->
+    <script src="js/vendor.js"></script>
+
+    <!--====== jQuery Shopnav plugin ======-->
+    <script src="js/jquery.shopnav.js"></script>
+
+    <!--====== App ======-->
+    <script src="js/app.js"></script>
+
+    <!--====== Noscript ======-->
+    <noscript>
+        <div class="app-setting">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="app-setting__wrap">
+                            <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+
+                            <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </noscript>
+</body>
+</html>

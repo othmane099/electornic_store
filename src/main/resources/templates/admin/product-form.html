@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin_headerinc :: admin_head"></th:block>
+</head>
+<body class="config">
+<div class="preloader is-active">
+    <div class="preloader__wrap">
+
+        <img class="preloader__img" src="/images/loading_2.png" alt=""></div>
+</div>
+
+<!--====== Main App ======-->
+<div id="app">
+
+    <!--====== Admin Header ======-->
+    <th:block th:include="fragments/admin_header :: admin_header"></th:block>
+    <!--====== End - Admin Header ======-->
+
+    <section class="mt-3">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Product Form</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/admin/product/save}" th:object="${product}">
+                        <input name="id" th:field="*{id}" hidden>
+                        <input name="quantityId" th:field="*{quantity.id}" hidden>
+                        <input name="visibility" th:field="*{visibility}" hidden>
+                        <input name="views" th:field="*{views}" hidden>
+                        <input name="trending" th:field="*{trending}" hidden>
+                        <input name="newArrival" th:field="*{newArrival}" hidden>
+                        <input name="defaultPicture" th:field="*{defaultPicture}" hidden>
+
+                        <div class="mb-3">
+                            <label for="productTitle" class="form-label">Title</label>
+                            <input name="productTitle" th:field="*{title}" type="text" class="form-control" id="productTitle" aria-describedby="productHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea name="productDescription" th:field="*{description}" type="text" class="form-control" id="productDescription" cols="45" rows="8" aria-describedby="productHelp"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <input name="productPrice" th:field="*{price}" type="text" class="form-control" id="productPrice" aria-describedby="productHelp">
+                        </div>
+                        <hr>
+                        <h5>Quantity</h5>
+                        <div class="mb-3">
+                            <label for="productQuantity" class="form-label">Quantity Number</label>
+                            <input name="quantity" th:field="*{quantity.number}" type="text" class="form-control" id="productQuantity" aria-describedby="productHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantityDisplay" class="form-label">Display</label>
+                            <select name="display" th:field="*{quantity.display}" id="quantityDisplay">
+                                <option th:value="${product.quantity.display}"
+                                        th:text="${product.quantity.display}"
+                                        selected>
+                                </option>
+                                <option th:value="!${product.quantity.display}"
+                                        th:text="!${product.quantity.display}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantityBadge" class="form-label">Badge</label>
+                            <select name="display" th:field="*{quantity.quantityBadge}" id="quantityBadge">
+                                <option th:each="badge : ${T(com.amarket.amarketmvc.model.QuantityBadge).values()}"
+                                        th:value="${badge}"
+                                        th:text="${badge.name()}">
+                                </option>
+                            </select>
+                        </div>
+                        <hr>
+                        <h5>Discount</h5>
+                        <div class="mb-3">
+                            <label for="poldPrice" class="form-label">Old Price</label>
+                            <input name="quantity" th:field="*{discount.oldPrice}" type="text" class="form-control" id="poldPrice" aria-describedby="productHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="percentage" class="form-label">Percentage</label>
+                            <input name="quantity" th:field="*{discount.percentage}" type="text" class="form-control" id="percentage" aria-describedby="productHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="discountDisplay" class="form-label">Display</label>
+                            <select name="display" th:field="*{discount.display}" id="discountDisplay">
+                                <option th:value="${product.discount.display}"
+                                        th:text="${product.discount.display}"
+                                        selected>
+                                </option>
+                                <option th:value="!${product.discount.display}"
+                                        th:text="!${product.discount.display}">
+                                </option>
+                            </select>
+                        </div>
+                        <hr>
+                        <h5>Category</h5>
+                        <div class="mb-3">
+                            <label for="productCategory" class="form-label">Category</label>
+                            <select name="category" th:field="*{category}" id="productCategory">
+                                <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!--====== End - Main App ======-->
+
+
+<!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+<script>
+    window.ga = function () {
+        ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<!--====== Vendor Js ======-->
+<script src="/js/vendor.js"></script>
+
+<!--====== jQuery Shopnav plugin ======-->
+<script src="/js/jquery.shopnav.js"></script>
+
+<!--====== App ======-->
+<script src="/js/app.js"></script>
+
+<!--====== Bootstrap ======-->
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--====== Noscript ======-->
+<noscript>
+    <div class="app-setting">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="app-setting__wrap">
+                        <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+
+                        <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</noscript>
+</body>
+</html>

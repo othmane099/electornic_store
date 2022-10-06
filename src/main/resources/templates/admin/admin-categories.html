@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin_headerinc :: admin_head"></th:block>
+
+</head>
+<body class="config">
+<div class="preloader is-active">
+    <div class="preloader__wrap">
+
+        <img class="preloader__img" src="/images/loading_2.png" alt=""></div>
+</div>
+
+<!--====== Main App ======-->
+<div id="app">
+
+    <!--====== Admin Header ======-->
+    <th:block th:include="fragments/admin_header :: admin_header"></th:block>
+    <!--====== End - Admin Header ======-->
+
+    <section class="mt-3">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Add Category</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/admin/category/save}" th:object="${categoryToAdd}">
+                        <div class="row">
+                            <div class="col-8 mb-3">
+                                <input name="name" th:field="*{name}"
+                                       type="text" class="form-control">
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="categoryVisibility" class="form-label">Visibility</label>
+                                <input name="visibility" type="checkbox"  id="categoryVisibility"
+                                       class="me-3 ms-1"
+                                       th:field="*{visibility}"
+                                />
+                                <label for="categoryTrending" class="form-label">Trending</label>
+                                <input name="trending" type="checkbox"  id="categoryTrending"
+                                       class="me-3 ms-1"
+                                       th:field="*{trending}"
+                                />
+                            </div>
+                            <div class="col-1">
+                                <button type="submit" class="btn btn-dark">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-3">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Categories</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/admin/category/save}"
+                          th:object="${categoryToUpdate}" th:each="cat : ${categories}">
+                        <input name="id" th:value="${cat.id}" hidden>
+                        <input name="slug" th:value="${cat.slug}" hidden>
+                        <input name="dataFilter" th:value="${cat.dataFilter}" hidden>
+                        <div class="row">
+                            <div class="col-8 mb-3">
+                                <input name="name" th:value="${cat.name}"
+                                       type="text" class="form-control">
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="categoryVisibility2" class="form-label">Visibility</label>
+                                <select name="visibility" id="categoryVisibility2">
+                                    <option th:value="${cat.visibility}"
+                                            th:text="${cat.visibility}"
+                                            selected>
+                                    </option>
+                                    <option th:value="!${cat.visibility}"
+                                            th:text="!${cat.visibility}">
+                                    </option>
+                                </select>
+                                <label for="categoryTrending2" class="form-label">Trending</label>
+                                <select name="trending" id="categoryTrending2">
+                                    <option th:value="${cat.trending}"
+                                            th:text="${cat.trending}"
+                                            selected>
+                                    </option>
+                                    <option th:value="!${cat.trending}"
+                                            th:text="!${cat.trending}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button type="submit" class="btn btn-dark">Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--====== End - Main App ======-->
+
+
+<!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+<script>
+    window.ga = function() {
+        ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<!--====== Vendor Js ======-->
+<script src="/js/vendor.js"></script>
+
+<!--====== jQuery Shopnav plugin ======-->
+<script src="/js/jquery.shopnav.js"></script>
+
+<!--====== App ======-->
+<script src="/js/app.js"></script>
+
+<!--====== Bootstrap ======-->
+<script  src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--====== Noscript ======-->
+<noscript>
+    <div class="app-setting">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="app-setting__wrap">
+                        <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+
+                        <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</noscript>
+</body>
+</html>
